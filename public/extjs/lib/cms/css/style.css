@@ -1,0 +1,388 @@
+
+.loading-bg {
+    background:#fff;
+}
+
+#loading-mask {
+    background-color: #FFFFFF;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 20000;
+}
+#loading {
+    margin: 20px auto;
+    width: 250px;
+    padding: 2px;
+    z-index: 20001;
+}
+#logo {
+    width: 100%;
+    text-align: center;
+    margin-top: 150px;
+}
+#loading a {
+    color: #225588;
+}
+#loading .loading-indicator {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #444444;
+    font: bold 13px Helvetica,Arial,sans-serif;
+    height: auto;
+    margin: 0;
+    padding: 10px;
+}
+#loading-msg {
+    font-size: 10px;
+    font-weight: normal;
+}
+
+.x-menu-item img.preview-right, .preview-right {
+    background-image: url(/extjs/lib/cms/images/preview-right.gif);
+}
+.x-menu-item img.preview-bottom, .preview-bottom {
+    background-image: url(/extjs/lib/cms/images/preview-bottom.gif);
+}
+.x-menu-item img.preview-hide, .preview-hide {
+    background-image: url(/extjs/lib/cms/images/preview-hide.gif);
+}
+
+#reading-menu .x-menu-item-checked {
+    border: 1px dotted #a3bae9 !important;
+    background: #DFE8F6;
+    padding: 0;
+    margin: 0;
+}
+.summary {
+    background-image: url("/extjs/lib/cms/images/details.gif") !important;
+}
+.reading {
+    background-image: url("/extjs/lib/cms/images/article.gif") !important;
+}
+.post-go {
+    background-image: url("/extjs/lib/cms/images/post_go.gif") !important;
+}
+.tab-new {
+    background-image: url("/extjs/lib/cms/images/tab_new.gif") !important;
+}
+.window-add {
+    background-image: url("/extjs/lib/cms/images/rss_add.gif") !important;
+}
+.window-remove {
+    background-image: url("/extjs/lib/cms/images/rss_delete.gif") !important;
+}
+.window-load {
+    background-image: url("/extjs/lib/cms/images/rss_load.gif") !important;
+}
+.details {
+    background-image: url("/extjs/lib/cms/images/details.gif") !important;
+}
+.open-all {
+    background-image: url("/extjs/lib/cms/images/tabs.gif") !important;
+}
+.wind {
+    background-image: url("/extjs/lib/cms/images/rss.gif") !important;
+    height: 16px;
+    width: 16px;
+}
+.window-picker-url {
+    float: left;
+    width: 425px;
+}
+.window-picker-title {
+    color: #777777;
+    font-size: 10px;
+}
+
+.topic {
+    background: url("/extjs/lib/cms/images/post.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    padding: 2px 0 0 20px;
+}
+.x-rtl .topic {
+    background: url("/extjs/lib/cms/images/post.gif") no-repeat scroll right top rgba(0, 0, 0, 0);
+    padding: 2px 20px 0 0;
+}
+
+.icon-add {
+    background-image: url("/extjs/lib/cms/images/icons/fam/add.gif");
+}
+.icon-delete {
+    background-image: url("/extjs/lib/cms/images/icons/fam/delete.gif");
+}
+.icon-upload {
+    background-image: url("/extjs/lib/cms/images/icons/fam/image_add.png");
+}
+
+.form-login-icon-title {
+    background-image: url("/extjs/lib/cms/images/icons/fam/locked.png");
+}
+
+.topic b {
+    color: #333333;
+    display: block;
+    font-family: tahoma,verdana;
+}
+.author {
+    color: #333333;
+}
+.post-date {
+    color: #333333;
+    font-weight: bold;
+}
+.window-grid .x-grid-rowbody {
+    color: #555555;
+    font-size: 11px;
+    margin: 5px 20px 10px 25px !important;
+}
+.window-grid .x-rtl .x-grid-rowbody {
+    margin: 5px 25px 10px 20px !important;
+}
+.preview .x-panel-body {
+    background: none repeat scroll 0 0 #FFFFFF;
+    color: #222222;
+    font: 12px tahoma,verdana,arial,sans-serif;
+}
+.preview .x-panel-body p {
+    line-height: 18px;
+    margin: 8px 0;
+}
+.preview .x-panel-body ul {
+    margin-left: 18px;
+}
+.preview .x-panel-body ul li {
+    display: list-item;
+    list-style: disc outside none !important;
+    margin-left: 18px;
+}
+.x-rtl .preview .x-panel-body ul li {
+    margin-left: 0;
+    margin-right: 18px;
+}
+.preview .x-panel-body pre, #preview .x-panel-body code {
+    background: none repeat scroll 0 0 #F1F1F1;
+    display: block;
+}
+.preview .x-panel-body h4.post-author {
+    color: #555555;
+    font-size: 11px;
+    font-weight: normal;
+}
+.preview .x-panel-body span.post-date {
+    color: #555555;
+    float: right;
+    font-size: 11px;
+    font-weight: normal;
+}
+.x-rtl .preview .x-panel-body span.post-date {
+    float: left;
+}
+.preview .x-panel-body div.post-data {
+    background: none repeat scroll 0 0 #F1F2F4;
+    border-bottom: 1px solid #DADADB;
+    padding: 5px;
+}
+.preview .x-panel-body div.post-body {
+    padding: 10px;
+}
+
+/**
+ * Icons
+ */
+
+.summary {
+    background-image: url(/extjs/lib/cms/images/details.gif) !important;
+}
+
+.reading {
+    background-image: url(/extjs/lib/cms/images/article.gif) !important;
+}
+
+.post-go {
+    background-image: url(/extjs/lib/cms/images/post_go.gif) !important;
+}
+
+.tab-new {
+    background-image: url(/extjs/lib/cms/images/tab_new.gif) !important;
+}
+
+.window-add {
+    background-image: url(/extjs/lib/cms/images/rss_add.gif) !important;
+}
+
+.window-remove {
+    background-image: url(/extjs/lib/cms/images/rss_delete.gif) !important;
+}
+
+.window-load {
+    background-image: url(/extjs/lib/cms/images/rss_load.gif) !important;
+}
+
+.details {
+    background-image: url(/extjs/lib/cms/images/details.gif) !important;
+}
+
+.open-all {
+    background-image: url(/extjs/lib/cms/images/tabs.gif) !important;
+}
+
+.window {
+    width: 16px;
+    height: 16px;
+    background-image: url(/extjs/lib/cms/images/rss.gif) !important;
+}
+
+/**
+ * Other styles
+ */
+.window-picker-url {
+    float: left;
+    width: 425px;
+}
+.window-picker-title {
+    /*    float: left;*/
+    color: #777;
+    font-size: 10px;
+}
+
+.window-list {
+    padding: 0 3px 0 3px;
+}
+
+.window-list-item {
+    margin-top: 3px;
+    padding-left: 20px;
+    font-size: 11px;
+    line-height: 20px;
+    cursor: pointer;
+    border: 1px solid #fff;
+}
+
+.window-list-item-icon {
+    background: url(/extjs/lib/cms/images/tabs.gif) no-repeat 0 2px;
+}
+
+.window-list .x-item-selected {
+    font-weight: bold;
+    color: #15428B;
+    background-color: #DFE8F6;
+    border: 1px dotted #A3BAE9;
+}
+
+.window-list-item-hover {
+    background-color: #eee;
+}
+
+.topic {
+    padding: 2px 0 0 20px;
+    background:transparent url(/extjs/lib/cms/images/post.gif) no-repeat;
+}
+
+.x-rtl .topic {
+    padding: 2px 20px 0 0;
+    background:transparent url(/extjs/lib/cms/images/post.gif) no-repeat top right;
+}
+
+.topic b {
+    font-family: tahoma, verdana;
+    display: block;
+    color: #333;
+}
+
+.author {
+    color: #333
+}
+
+.post-date {
+    font-weight:bold;
+    color:#333;
+}
+
+.window-grid .x-grid-rowbody {
+    margin: 5px 20px 10px 25px !important;
+    color: #555;
+    font-size: 11px;
+}
+
+.window-grid .x-rtl .x-grid-rowbody {
+    margin: 5px 25px 10px 20px !important;
+}
+
+/* Preview classes */
+
+.preview .x-panel-body {
+    background:#fff;
+    color:#222;
+    font:normal 12px tahoma,verdana,arial,sans-serif;
+}
+
+.preview .x-panel-body p {
+    line-height:18px;
+    margin:8px 0;
+}
+
+.preview .x-panel-body ul {
+    margin-left:18px;
+}
+
+.preview .x-panel-body ul li {
+    display:list-item;
+    list-style-image:none !important;
+    list-style-position:outside !important;
+    list-style-type:disc !important;
+    margin-left:18px;
+}
+
+.x-rtl .preview .x-panel-body ul li {
+    margin-left: 0;
+    margin-right: 18px;
+}
+
+.preview .x-panel-body pre, #preview .x-panel-body code {
+    background:#f1f1f1;
+    display:block;
+}
+
+.preview .x-panel-body h4.post-author {
+    font-weight:normal;
+    color:#555;
+    font-size:11px;
+}
+.preview .x-panel-body span.post-date {
+    font-weight:normal;
+    color:#555;
+    float:right;
+    font-size:11px;
+}
+.x-rtl .preview .x-panel-body span.post-date {
+    float:left;
+}
+.preview .x-panel-body div.post-data {
+    background:#f1f2f4;
+    padding:5px;
+    border-bottom:1px solid #dadadb;
+}
+.preview .x-panel-body div.post-body {
+    padding:10px;
+}
+.x-menu-item img.preview-right, .preview-right {
+    background-image: url(/extjs/lib/cms/images/preview-right.gif);
+}
+.x-menu-item img.preview-bottom, .preview-bottom {
+    background-image: url(/extjs/lib/cms/images/preview-bottom.gif);
+}
+.x-menu-item img.preview-hide, .preview-hide {
+    background-image: url(/extjs/lib/cms/images/preview-hide.gif);
+}
+
+#reading-menu .x-menu-item-checked {
+    border: 1px dotted #a3bae9 !important;
+    background: #DFE8F6;
+    padding: 0;
+    margin: 0;
+}
+
+.logout {
+    background-image: url("/extjs/lib/cms/images/icons/fam/logout.png") !important;
+}

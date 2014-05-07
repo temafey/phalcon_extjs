@@ -1,0 +1,10 @@
+Ext.require([
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.toolbar.Paging',
+    'Ext.ux.PreviewPlugin',
+    'Ext.ux.TabScrollerMenu',
+    'Ext.ModelManager',
+    'Cms.WindowViewer'
+]);
