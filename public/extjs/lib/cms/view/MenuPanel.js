@@ -106,7 +106,7 @@ Ext.define('Cms.view.MenuPanel', {
             autoLoad: true,
             proxy: {
                 type: 'ajax',
-                url: '/admin/menu/options',
+                url: '/'+ADMIN_PREFIX+'/menu/options',
                 reader: {
                     root: 'event',
                     type: 'json'

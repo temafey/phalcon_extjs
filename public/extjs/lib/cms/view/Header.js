@@ -10,7 +10,7 @@ Ext.define('Cms.view.Header', {
         {
             xtype:'container',
             columnWidth:.80,
-            html:'<image src="./admin/images/logo.png" height="50">',
+            html:'<image src="./extjs/images/logo.png" height="50">',
             border:'none'
         },
         {

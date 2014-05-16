@@ -45,8 +45,8 @@ Ext.define('Cms.view.WindowForm', {
             me.add(me.form);
         }
 
+        me.active = rec;
         if (rec !== undefined) {
-            me.active = rec;
             me.form.setActiveRecord(me.active);
             gotoButton.enable();
             gotoButton.setHref(me.form.getLink());

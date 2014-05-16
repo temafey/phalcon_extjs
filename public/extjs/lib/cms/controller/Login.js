@@ -81,12 +81,13 @@ Ext.define('Cms.controller.Login', {
 
     checkAuthority: function (username, password, remember) {
         var me = this;
+
         if (me.empty(username) || me.empty(password)) {
             return false;
         }
 
         Ext.Ajax.request({
-            url: '/admin/auth',
+            url: '/'+ADMIN_PREFIX+'/auth',
             params: {
                 username: username,
                 password: password,
@@ -123,7 +124,7 @@ Ext.define('Cms.controller.Login', {
         }
 
         Ext.Ajax.request({
-            url: '/admin/check',
+            url: '/'+ADMIN_PREFIX+'/check',
             params: {
                 token: token
             },
@@ -153,7 +154,7 @@ Ext.define('Cms.controller.Login', {
         console.log('Check is auth');
 
         Ext.Ajax.request({
-            url: '/admin/isauth',
+            url: '/'+ADMIN_PREFIX+'/isauth',
             win: me,
             success: function (response, opts) {
                 var obj = Ext.decode(response.responseText);
@@ -212,7 +213,7 @@ Ext.define('Cms.controller.Login', {
         menu.getStore().reload();
 
         Ext.Ajax.request({
-            url: '/admin/logout',
+            url: '/'+ADMIN_PREFIX+'/logout',
             success: function (response, opts) {
                 var obj = Ext.decode(response.responseText);
                 if (obj.success) {

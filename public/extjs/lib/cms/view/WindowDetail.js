@@ -24,12 +24,19 @@ Ext.define('Cms.view.WindowDetail', {
             me.controllerApp.init();
         }
         me.grid = me.createGrid(me.controllerApp);
-        me.initDisplay(me.grid.additionals);
+        me.initDisplay(me.controllerApp);
+
+        var items = new Array();
+        items.push(me.grid);
+        if (me.controllerApp.additionals.length > 0) {
+            items.push(me.createSouth());
+            items.push(me.createEast());
+        }
 
         Ext.apply(me, {
             layout: 'border',
             //items: [me.createNorth(), me.createSouth(), me.createEast()]
-            items: [me.grid, me.createSouth(), me.createEast()]
+            items: items
         });
 
         me.relayEvents(me.grid, ['rowdblclick']);
@@ -45,15 +52,21 @@ Ext.define('Cms.view.WindowDetail', {
         var me = this,
             additionalParams = {};
 
+        var dockerItems = new Array();
+        if (controller.additionals.length > 0) {
+            dockerItems.push(me.createTopToolbar());
+        }
+
         var filter = me.createFilter(controller);
-            filter.setParams(me.additionalParams);
+        filter.setParams(me.additionalParams);
+        dockerItems.push(filter);
 
         var grid = Ext.create(controller.grid, {
             buildStore: false,
             store: controller.activeStore,
             region: 'center',
             filter: filter,
-            dockedItems: [me.createTopToolbar(), filter],
+            dockedItems: dockerItems,
             flex: 2,
             minHeight: 200,
             minWidth: 150,
@@ -77,7 +90,9 @@ Ext.define('Cms.view.WindowDetail', {
         var me = this;
 
         me.display = new Ext.util.MixedCollection();
+        /*
         var additionalForm = Ext.create('Cms.view.WindowForm', {
+            window: me,
             controller: me.getController(),
             grid: me.grid
         });
@@ -86,6 +101,7 @@ Ext.define('Cms.view.WindowDetail', {
             additionalForm.title = 'Form';
         }
         me.display.add(additionalForm);
+        */
         for (var i = 0; i < additionals.length; i++) {
             if (typeof additionals[i] != 'undefined') {
                 additional = me.createAdditional(additionals[i]['type'], additionals[i]['controller'], additionals[i]['param']);
@@ -117,7 +133,8 @@ Ext.define('Cms.view.WindowDetail', {
                 break;
             case 'form':
                 var additional = Ext.create('Cms.view.WindowForm', {
-                    controller: controllerApp
+                    controller: controllerApp,
+                    grid: me.grid
                 });
                 additional.title = controllerApp.title;
                 break;
@@ -162,7 +179,7 @@ Ext.define('Cms.view.WindowDetail', {
             width: 600,
             minWidth: 350,
             height: 350,
-            layout: 'border',
+            autoScroll: true,
             bodyStyle: 'padding: 5px;'
         });
 
