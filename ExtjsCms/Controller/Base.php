@@ -28,19 +28,21 @@ class Base extends PhController
             $this->init();
         }
         //$scriptModulePath = 'extjs/apps/Cms';
-        $scriptModulePath = 'extjs/lib/cms';
+        $scriptPath = 'extjs';
+        $scriptModulePath = $scriptPath.'/lib/cms';
         //Add some local CSS resources
         $this->assets
             //->addCss('extjs/lib/resources/css/ext-all.css')
             //->addJs('extjs/lib/ext-all.js')
             ->addJs($scriptModulePath.'/static/include-ext.js')
             ->addJs($scriptModulePath.'/static/options-toolbar.js')
-            ->addJs('extjs/lib/ux/router/Route.js')
-            ->addJs('extjs/lib/ux/router/Router.js')
+            ->addJs($scriptPath.'/lib/ux/router/Route.js')
+            ->addJs($scriptPath.'/lib/ux/router/Router.js')
             ->addJs($scriptModulePath.'/static/router.js')
             ->addCss($scriptModulePath."/css/style.css");
             //->addJs('extjs/lib/ext-all-rtl-debug-w-comments.js');
 
+        $this->view->ADMIN_PREFIX = ADMIN_PREFIX;
         $this->view->modulePath = $scriptModulePath;
     }
 

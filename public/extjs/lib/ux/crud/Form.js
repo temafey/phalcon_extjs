@@ -46,6 +46,8 @@ Ext.define('Ext.ux.crud.Form', {
         me.activeRecord = record;
         if (record) {
             //me.down('#save').enable();
+            var primary = me.getPrimaryField();
+            primary.enable();
             me.getForm().loadRecord(record);
         } else {
             me.down('#save').disable();
