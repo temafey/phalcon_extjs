@@ -2,18 +2,20 @@ Ext.define('Cms.controller.Login', {
     extend:'Cms.controller.Base',
 
     init: function () {
-        this.control({
+        var me = this;
+
+        me.control({
             'viewport': {
-                render: this.index
+                render: me.index
             },
             'button[action=login]': {
-                click: this.login
+                click: me.login
             },
             '#loginwindow textfield': {
-                specialkey: this.keyenter
+                specialkey: me.keyenter
             },
             'button[action=logout]': {
-                click: this.logout
+                click: me.logout
             }
         });
     },
@@ -103,7 +105,7 @@ Ext.define('Cms.controller.Login', {
                     return true;
                 } else {
                     //Ext.getCmp('loginwindow').show();
-                    Ext.Msg.alert('Failed', obj.msg);
+                    me.login();
                     return false;
                 }
             },
@@ -162,8 +164,9 @@ Ext.define('Cms.controller.Login', {
                     opts.win.activate();
                     return true;
                 } else {
-                    Ext.Msg.alert('Success', obj.msg);
+                    //Ext.Msg.alert('Success', obj.msg);
                     Ext.util.Cookies.clear('username');
+                    me.login();
                     return false;
                 }
             },

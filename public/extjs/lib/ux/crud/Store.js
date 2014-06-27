@@ -9,9 +9,11 @@ Ext.define('Ext.ux.crud.Store', {
      * @param string key
      */
     addBaseParamKeyValue: function(key, value) {
-        var obj = {};
+        var me = this,
+            obj = {};
+
         obj[key] = value;
-        Ext.apply(this.baseParams, obj);
+        Ext.apply(me.baseParams, obj);
     },
 
     /**
@@ -19,7 +21,9 @@ Ext.define('Ext.ux.crud.Store', {
      * @param {Object} key/value object: {key: value}
      */
     addBaseParam: function(obj) {
-        Ext.apply(this.baseParams, obj);
+        var me = this;
+
+        Ext.apply(me.baseParams, obj);
     },
 
     /**
@@ -42,7 +46,9 @@ Ext.define('Ext.ux.crud.Store', {
      * reset base parameters
      */
     resetBaseParams: function() {
-        this.baseParams = {};
+        var me = this;
+
+        me.baseParams = {};
     },
 
     /**

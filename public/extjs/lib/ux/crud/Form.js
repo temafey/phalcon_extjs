@@ -28,9 +28,10 @@ Ext.define('Ext.ux.crud.Form', {
                 url: me.url,
                 parentForm: me,
                 success: function(form, action) {
-                    console.log(this.parentForm.grid);
-                    if (this.parentForm.grid !== undefined) {
-                        this.parentForm.grid.onReload();
+                    var me = this;
+
+                    if (me.parentForm.grid !== undefined) {
+                        me.parentForm.grid.onReload();
                     }
                     Ext.Msg.alert('Success', action.result.msg);
                 },
@@ -43,6 +44,7 @@ Ext.define('Ext.ux.crud.Form', {
 
     setActiveRecord: function(record) {
         var me = this;
+
         me.activeRecord = record;
         if (record) {
             //me.down('#save').enable();
@@ -59,12 +61,12 @@ Ext.define('Ext.ux.crud.Form', {
         var me = this;
 
         var fields = me.getForm().getFields().items;
-
         for (var i = 0, len = fields.length; i < len; i++) {
             if (fields[i].name === me.primaryKey) {
                 return fields[i]
             }
         }
+
         return false;
     },
 

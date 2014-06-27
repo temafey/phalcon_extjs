@@ -7,6 +7,7 @@ Ext.define('Cms.view.Viewport', {
 
     construct: function() {
         var me = this;
+
         me.initialized = true;
         me.items.items[1].add(me.createHeader());
         me.items.items[1].add(me.createMenuPanel());

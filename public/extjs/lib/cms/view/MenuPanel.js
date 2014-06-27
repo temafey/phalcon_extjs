@@ -61,8 +61,10 @@ Ext.define('Cms.view.MenuPanel', {
     },
 
     getState: function() {
-        var nodes = [];
-        this.getRootNode().eachChild(function (child) {
+        var me = this,
+            nodes = [];
+
+        me.getRootNode().eachChild(function (child) {
         //function to store state of tree recursively
             var storeTreeState = function (node, expandedNodes) {
                 if (node.isExpanded() && node.childNodes.length > 0) {
@@ -81,14 +83,14 @@ Ext.define('Cms.view.MenuPanel', {
     },
 
     applyState: function (state) {
-        var that = this;
+        var me = this;
 
         //read state in from cookie, not from what is passed in
         var cookie = Ext.state.Manager.get('tree-panel-menu-state-id');
         var nodes = cookie.expandedNodes;
         for (var i = 0; i < nodes.length; i++) {
             if (typeof nodes[i] != 'undefined') {
-                that.expandPath(nodes[i]);
+                me.expandPath(nodes[i]);
             }
         }
     },

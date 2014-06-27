@@ -37,6 +37,7 @@ Ext.define('Cms.app.Application', {
     initDispatch: function () {
         var me = this,
             token = Ext.History.getToken();
+
         Ext.log('Init dispatch with token: ' + token);
         me.historyChange(token);
     },
