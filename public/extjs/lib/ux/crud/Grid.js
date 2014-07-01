@@ -7,7 +7,11 @@ Ext.define('Ext.ux.crud.Grid', {
         var me = this;
 
         return Ext.create(store, {
-            baseParams: me.baseParams
+            baseParams: me.baseParams,
+            listeners: {
+                scope: me,
+                load: me.onStoreLoad
+            }
         });
     },
 
@@ -19,7 +23,9 @@ Ext.define('Ext.ux.crud.Grid', {
     },
 
     onCreate: function() {
-        this.fireEvent('select', this, undefined);
+        var me = this;
+
+        me.fireEvent('select', me, undefined);
     },
 
     onDelete: function() {
@@ -84,7 +90,15 @@ Ext.define('Ext.ux.crud.Grid', {
     },
 
     onReload: function() {
-        this.getStore().load();
+        var me = this;
+
+        me.getStore().load();
+    },
+
+    onStoreLoad: function(store, records, success) {
+        var me = this;
+
+        me.fireEvent('storeLoad', me, store, records, success);
     },
 
     onDbClick: function(model, selections) {
@@ -124,11 +138,14 @@ Ext.define('Ext.ux.crud.Grid', {
                 return me.columns[i];
             }
         }
+
         return false;
     },
 
     getStoreRowById: function(id) {
-        return this.getStore().getById(id);
+        var me = this;
+
+        return me.getStore().getById(id);
     },
 
     getColumnFieldValue: function(name, value) {

@@ -84,8 +84,7 @@ Ext.define('Cms.view.WindowForm', {
                     iconCls: 'tab-new'
                 }
             );
-        }
-        else {
+        } else {
             config.cls = 'x-docked-noborder-top';
         }
 

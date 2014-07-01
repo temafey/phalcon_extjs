@@ -24,7 +24,7 @@ Ext.define('Cms.view.WindowDetail', {
             me.controllerApp.init();
         }
         me.grid = me.createGrid(me.controllerApp);
-        me.initDisplay(me.controllerApp);
+        me.initDisplay(me.controllerApp.additionals);
 
         var items = new Array();
         items.push(me.grid);
@@ -72,7 +72,8 @@ Ext.define('Cms.view.WindowDetail', {
             minWidth: 150,
             listeners: {
                 scope: me,
-                select: me.onSelect
+                select: me.onSelect,
+                storeLoad: me.onStoreLoad
             }
         });
 
@@ -91,17 +92,17 @@ Ext.define('Cms.view.WindowDetail', {
 
         me.display = new Ext.util.MixedCollection();
         /*
-        var additionalForm = Ext.create('Cms.view.WindowForm', {
-            window: me,
-            controller: me.getController(),
-            grid: me.grid
-        });
-        me.relayEvents(additionalForm, ['opentab']);
-        if (additionals.length > 0) {
-            additionalForm.title = 'Form';
-        }
-        me.display.add(additionalForm);
-        */
+         var additionalForm = Ext.create('Cms.view.WindowForm', {
+         window: me,
+         controller: me.getController(),
+         grid: me.grid
+         });
+         me.relayEvents(additionalForm, ['opentab']);
+         if (additionals.length > 0) {
+         additionalForm.title = 'Form';
+         }
+         me.display.add(additionalForm);
+         */
         for (var i = 0; i < additionals.length; i++) {
             if (typeof additionals[i] != 'undefined') {
                 additional = me.createAdditional(additionals[i]['type'], additionals[i]['controller'], additionals[i]['param']);
@@ -120,12 +121,19 @@ Ext.define('Cms.view.WindowDetail', {
      * @return {Ext.panel.Panel} additional
      */
     createAdditional: function(type, controller, param) {
-        var controllerApp = Ext.create(controller, {});
-        controllerApp.init();
+        var me = this;
+
+        if (me.controllerApp.$className == controller) {
+            controllerApp = me.controllerApp;
+        } else {
+            controllerApp = Ext.create(controller, {});
+            controllerApp.init();
+        }
 
         switch (type) {
             case 'grid':
                 var additional = Ext.create('Cms.view.WindowGrid', {
+                    window: me,
                     controller: controllerApp,
                     additionalGridParam: param
                 });
@@ -133,6 +141,7 @@ Ext.define('Cms.view.WindowDetail', {
                 break;
             case 'form':
                 var additional = Ext.create('Cms.view.WindowForm', {
+                    window: me,
                     controller: controllerApp,
                     grid: me.grid
                 });
@@ -189,7 +198,7 @@ Ext.define('Cms.view.WindowDetail', {
     /**
      * Fires when a grid row is selected
      *
-     * @param {Ext.grid.Panel} grid
+     * @param {Ext.ux.crud.Grid} grid
      * @param {Ext.data.Model} rec
      */
     onSelect: function(grid, rec) {
@@ -201,9 +210,47 @@ Ext.define('Cms.view.WindowDetail', {
     },
 
     /**
+     * Fires when a grid store is loaded
+     *
+     * @param {Ext.ux.crud.Grid} grid
+     * @param {Ext.ux.crud.Store} store
+     * @param {Ext.data.Model} records
+     * @param {Boolean} success
+     */
+    onStoreLoad: function(grid, store, records, success) {
+        var me = this;
+
+        if (!success && records == null) {
+            var token = Ext.util.Cookies.get('token');
+            Ext.Ajax.request({
+                url: '/'+ADMIN_PREFIX+'/check',
+                params: {
+                    token: token
+                },
+                grid: grid,
+                success: function (response, opts) {
+                    var obj = Ext.decode(response.responseText);
+                    if (obj.success) {
+                        grid.onReload();
+                        return true;
+                    } else {
+                        Ext.util.Cookies.clear('username');
+                        Ext.util.Cookies.clear('token');
+                        window.location = '/'+ADMIN_PREFIX;
+                    }
+                },
+                failure: function (response, opts) {
+                    window.location = '/'+ADMIN_PREFIX;
+                }
+            });
+
+        }
+    },
+
+    /**
      * Fires when a grid filter form is submited
      *
-     * @param {Ext.form.Panel} filter
+     * @param {Ext.ux.crud.Form} filter
      * @param {object} params
      */
     onFiltering: function(filter, params) {
@@ -247,12 +294,12 @@ Ext.define('Cms.view.WindowDetail', {
             cls: 'x-docked-noborder-top',
             items: [
                 /*{
-                    iconCls: 'open-all',
-                    text: 'Open All',
-                    scope: this,
-                    handler: me.onOpenAllClick
-                },
-                '-',*/
+                 iconCls: 'open-all',
+                 text: 'Open All',
+                 scope: this,
+                 handler: me.onOpenAllClick
+                 },
+                 '-',*/
                 {
                     xtype: 'cycle',
                     text: 'Reading Panel',
@@ -273,8 +320,8 @@ Ext.define('Cms.view.WindowDetail', {
                             text: 'Hide',
                             iconCls:'preview-hide'
                         }]
-                }
-            }]
+                    }
+                }]
         });
 
         return me.toolbar;
@@ -308,7 +355,8 @@ Ext.define('Cms.view.WindowDetail', {
      */
     onOpenAllClick: function() {
         var me = this;
-        me.fireEvent('openall', this);
+
+        me.fireEvent('openall', me);
     },
 
     /**
@@ -317,6 +365,7 @@ Ext.define('Cms.view.WindowDetail', {
      */
     getWindowData: function() {
         var me = this;
+
         return me.grid.store.getRange();
     },
 
@@ -341,18 +390,31 @@ Ext.define('Cms.view.WindowDetail', {
         switch (activeItem.text) {
             case 'Bottom':
                 me.east.hide();
-                me.south.show();
-                me.south.isSetActive = false;
+                if (me.east.type == 'tab') {
+                    activeTab = me.east.getActiveTab();
+                }
                 me.display.each(function(item, index, len) {
-                    this.add(item);
+                    var me = this;
+                    me.add(item);
                 }, me.south);
+                if (me.east.type == 'tab') {
+                    me.south.setActiveTab(activeTab);
+                }
+                me.south.show();
                 break;
             case 'Right':
                 me.south.hide();
-                me.east.show();
+                if (me.south.type == 'tab') {
+                    activeTab = me.south.getActiveTab();
+                }
                 me.display.each(function(item, index, len) {
-                    this.add(item);
+                    var me = this;
+                    me.add(item);
                 }, me.east);
+                if (me.south.type == 'tab') {
+                    me.east.setActiveTab(activeTab);
+                }
+                me.east.show();
                 break;
             default:
                 me.south.hide();
@@ -406,18 +468,26 @@ Ext.define('Cms.view.WindowDetail', {
             minHeight: 300,
             minWidth: 300
         };
-
         if (me.display.getCount() > 1) {
-           type = 'Ext.tab.Panel';
-           options.activeTab = 0;
+            type = 'Ext.tab.Panel';
+            options.type = 'tab';
+            options.activeTab = 0;
+            options.isSetActive = false;
         } else {
             type = 'Ext.panel.Panel';
+            options.type = 'panel';
         }
         me.south = Ext.create(type, options);
-        me.south.isSetActive = false;
+        me.south.type = options.type;
 
         me.display.each(function(item, index, len) {
-            this.add(item);
+            var me = this;
+
+            me.add(item);
+            if (me.type == 'tab' && me.isSetActive == false) {
+                me.setActiveTab(item);
+                me.isSetActive = true;
+            }
         }, me.south);
 
         return me.south;
@@ -445,15 +515,22 @@ Ext.define('Cms.view.WindowDetail', {
 
         if (me.display.getCount() > 1) {
             type = 'Ext.tab.Panel';
+            options.type = 'tab';
             options.activeTab = 0;
+            options.isSetActive = false;
         } else {
             type = 'Ext.panel.Panel';
+            options.type = 'panel';
         }
         me.east = Ext.create(type, options);
+        me.east.type = options.type;
+
         return me.east;
     },
 
     getController: function() {
-        return this.controllerApp;
+        var me = this;
+
+        return me.controllerApp;
     }
 });

@@ -64,8 +64,7 @@ Ext.define('Cms.view.WindowGrid', {
                     iconCls: 'tab-new'
                 }
             );
-        }
-        else {
+        } else {
             config.cls = 'x-docked-noborder-top';
         }
 
@@ -80,7 +79,13 @@ Ext.define('Cms.view.WindowGrid', {
     },
 
     createGrid: function(controller, rec, param) {
-        var grid = Ext.create(controller.grid, {});
+        var me = this,
+            grid = Ext.create(controller.grid, {
+            listeners: {
+                scope: me,
+                storeLoad: me.window.onStoreLoad
+            }
+        });
         //grid.reconfigure(controller.getNewStore());
         //grid.store.autoSync = true;
 
