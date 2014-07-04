@@ -2,6 +2,9 @@ Ext.define('Ext.ux.crud.Grid', {
     extend: 'Ext.grid.Panel',
     baseParams: null,
     filter: false,
+    selModel: {
+        mode: 'MULTI'
+    },
 
     createStore : function(store) {
         var me = this;
@@ -35,9 +38,7 @@ Ext.define('Ext.ux.crud.Grid', {
         if (selections.length > 0) {
             Ext.MessageBox.confirm('Information', 'Do you really want to remove the selected items?', function (btn) {
                 if (btn == 'yes') {
-                    for (var i = 0, len = selections.length; i < len; i++) {
-                        me.getStore().remove(selections[i]);
-                    }
+                    me.getStore().remove(selections);
                     me.getStore().load();
                 }
             });
@@ -95,7 +96,7 @@ Ext.define('Ext.ux.crud.Grid', {
         me.getStore().load();
     },
 
-    onStoreLoad: function(store, records, success) {
+    onStoreLoad: function(store, records, success, eOpts) {
         var me = this;
 
         me.fireEvent('storeLoad', me, store, records, success);

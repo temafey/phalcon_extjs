@@ -105,7 +105,13 @@ Ext.define('Cms.controller.Login', {
                     return true;
                 } else {
                     //Ext.getCmp('loginwindow').show();
-                    me.login();
+                    Ext.Msg.alert('Alert', obj.msg, function() {
+                        var me = this;
+
+                        Ext.getCmp('loginform').getForm().reset();
+                        me.login();
+                    }, me);
+
                     return false;
                 }
             },
@@ -210,10 +216,10 @@ Ext.define('Cms.controller.Login', {
         Ext.log('Logout user');
         var lay = this.getViewport().getLayout();
         lay.setActiveItem(0);
-        var win = Ext.getCmp('loginwindow');
-        win.show();
-        var menu = Ext.getCmp('mainmenu');
-        menu.getStore().reload();
+        //var win = Ext.getCmp('loginwindow');
+        //win.show();
+        //var menu = Ext.getCmp('mainmenu');
+        //menu.getStore().reload();
 
         Ext.Ajax.request({
             url: '/'+ADMIN_PREFIX+'/logout',
@@ -222,6 +228,7 @@ Ext.define('Cms.controller.Login', {
                 if (obj.success) {
                     Ext.util.Cookies.clear('username');
                     Ext.util.Cookies.clear('token');
+                    window.location = '/'+ADMIN_PREFIX;
                     return true;
                 } else {
                     Ext.Msg.alert('Success', obj.msg);

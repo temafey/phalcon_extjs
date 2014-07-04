@@ -61,7 +61,7 @@ Ext.define('Ext.ux.crud.Store', {
         // manage base params
         me.baseParams = me.baseParams || {};
         // call parent
-        me.callParent(arguments);
+        me.callParent([config]);
     },
 
     /**
