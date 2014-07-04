@@ -139,4 +139,26 @@ class Base extends PhController
         return "\\".ucfirst($module)."\Model\\".ucfirst($model);
     }
 
+    /**
+     * Check access user to admin modules
+     *
+     * @return bool
+     */
+    protected function _checkAccess()
+    {
+        if ($this->acl->isAllowed($this->viewer->getRole(), \Engine\Acl\Dispatcher::ACL_ADMIN_MODULE, \Engine\Acl\Dispatcher::ACL_ADMIN_CONTROLLER, '*')) {
+            return true;
+        }
+        $action = $this->dispatcher->getActionName();
+        if ($this->acl->isAllowed($this->viewer->getRole(), \Engine\Acl\Dispatcher::ACL_ADMIN_MODULE, \Engine\Acl\Dispatcher::ACL_ADMIN_CONTROLLER, $action)) {
+            return true;
+        }
+        $module = $this->dispatcher->getModuleName();
+        $controller = $this->dispatcher->getControllerName();
+        if ($this->acl->isAllowed($this->viewer->getRole(), $module, $controller, $action, false)) {
+            return true;
+        }
+        return false;
+    }
+
 }

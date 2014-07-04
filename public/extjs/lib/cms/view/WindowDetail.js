@@ -219,7 +219,7 @@ Ext.define('Cms.view.WindowDetail', {
      */
     onStoreLoad: function(grid, store, records, success) {
         var me = this;
-
+return;
         if (!success && records == null) {
             var token = Ext.util.Cookies.get('token');
             Ext.Ajax.request({
@@ -230,7 +230,7 @@ Ext.define('Cms.view.WindowDetail', {
                 grid: grid,
                 success: function (response, opts) {
                     var obj = Ext.decode(response.responseText);
-                    if (obj.success) {
+                    if (obj.success == true) {
                         grid.onReload();
                         return true;
                     } else {

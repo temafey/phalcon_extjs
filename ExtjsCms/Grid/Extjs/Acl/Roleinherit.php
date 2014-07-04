@@ -52,9 +52,8 @@ class Roleinherit extends Base
     {
 		$this->_columns = [
 			'id'      => new Column\Primary('Id'),
-			'name'    => new Column\Name('Name'),
 			'role'    => new Column\JoinOne('Role', '\ExtjsCms\Model\Acl\Role'),
-            'inherit' => new Column\JoinOne('Inherit role', '\ExtjsCms\Model\Acl\RoleToinherit'),
+            'inherit' => new Column\JoinOne('Inherit role', '\ExtjsCms\Model\Acl\RoleToInherit')
 		];
     }
 
@@ -71,7 +70,6 @@ class Roleinherit extends Base
                     'path' => null,
                     'filters' => [
                         Criteria::COLUMN_ID => Criteria::CRITERIA_EQ,
-                        Criteria::COLUMN_NAME => Criteria::CRITERIA_BEGINS,
                     ],
                 ],
                 [
@@ -82,7 +80,6 @@ class Roleinherit extends Base
                 ]
 			]),
 			'id'   => new Field\Primary('Id'),
-            'name' => new Field\Name('Name'),
 			'role' => new Field\Join('Roles', '\ExtjsCms\Model\Acl\Role')
         ]);
     }

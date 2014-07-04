@@ -42,7 +42,7 @@ class RoleToInherit extends \Engine\Mvc\Model
      * @var string
      */
     public $name;
-     
+
     /**
      *
      * @var string

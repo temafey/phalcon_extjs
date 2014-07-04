@@ -4,7 +4,9 @@ Ext.define('Ext.ux.crud.Filter', {
     requires: ['Ext.form.Panel','Ext.form.field.*'],
 
     initComponent : function() {
-        this.callParent();
+        var me = this;
+
+        me.callParent();
     },
 
     onReset: function() {

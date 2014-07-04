@@ -9,9 +9,22 @@ use Phalcon\Mvc\View;
 /**
  * @RoutePrefix("/admin", name="home")
  */
-//@Acl(actions={"read","update,"save","delete","json","options"}, options={"crud_operations"})
+//@Acl(actions={"read","update","save","delete","json","options"}, options={"crud_operations"})
 class CrudController extends Base
 {
+    /**
+     * Initializes the controller
+     */
+    public function initialize()
+    {
+        if (!$this->_checkAccess()) {
+            $this->dispatcher->forward([
+                "controller" => 'admin',
+                "action" => 'denied'
+            ]);
+        }
+    }
+
     /**
      * @Route("/{crudModule:[a-z,-]+}/{crudGrid:[a-z,-]+}/read", methods={"GET", "POST"}, name="grid-read")
      */
@@ -23,6 +36,23 @@ class CrudController extends Base
         $grid = new $gridName($params, $this->getDi(), $this->getEventsManager());
 
         echo $grid->getDataWithRenderValues();
+
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+    }
+
+    /**
+     * @Route("/{crudModule:[a-z,-]+}/{crudForm:[a-z,-]+}/save", methods={"POST"}, name="grid-update")
+     */
+    public function saveAction($module, $form)
+    {
+        $params = $this->request->getPost();
+        $formName = $this->_getForm($module, $form);
+
+        $result = forward_static_call_array([$formName, 'updateRow'], [$params, $this->getDi(), $this->getEventsManager()]);
+        if (empty($result['error'])) {
+            $result['msg'] = 'Saved';
+        }
+        echo json_encode($result);
 
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }
@@ -51,23 +81,6 @@ class CrudController extends Base
         $formName = $this->_getForm($module, $form);
         $result = forward_static_call_array([$formName, 'deleteRows'], [$params, $form, $this->getDi(), $this->getEventsManager()]);
 
-        echo json_encode($result);
-
-        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
-    }
-
-    /**
-     * @Route("/{crudModule:[a-z,-]+}/{crudForm:[a-z,-]+}/save", methods={"POST"}, name="grid-update")
-     */
-    public function saveAction($module, $form)
-    {
-        $params = $this->request->getPost();
-        $formName = $this->_getForm($module, $form);
-
-        $result = forward_static_call_array([$formName, 'updateRow'], [$params, $this->getDi(), $this->getEventsManager()]);
-        if (empty($result['error'])) {
-            $result['msg'] = 'Saved';
-        }
         echo json_encode($result);
 
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);

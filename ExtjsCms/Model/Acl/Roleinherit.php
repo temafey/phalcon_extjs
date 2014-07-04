@@ -47,7 +47,7 @@ class Roleinherit extends \Engine\Mvc\Model
      *
      * @var string
      */
-    public $name;
+    public $inherit_role_id;
 
     /**
      * Initialize method for model.

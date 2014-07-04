@@ -41,7 +41,11 @@ class AdminController extends Base
         $result = ['success' => false];
 
         if ($this->auth->check($params)) {
-            $result['success'] = true;
+            if ($this->_checkAccess()) {
+                $result['success'] = true;
+            } else {
+                $result['msg'] = "Access denied";
+            }
         } else {
             $result['msg'] = $this->auth->getMessage();
         }
@@ -62,7 +66,11 @@ class AdminController extends Base
             if (!$this->viewer->getId()) {
                 $this->auth->loginWithRememberMe();
             }
-            $result['success'] = true;
+            if ($this->_checkAccess()) {
+                $result['success'] = true;
+            } else {
+                $result['msg'] = "Access denied";
+            }
         } else {
             $result['msg'] = $this->auth->getMessage();
         }
@@ -96,7 +104,11 @@ class AdminController extends Base
         $result = ['success' => false];
 
         if ($this->auth->isAuth()) {
-            $result['success'] = true;
+            if ($this->_checkAccess()) {
+                $result['success'] = true;
+            } else {
+                $result['msg'] = "Access denied";
+            }
         } else {
             $result['msg'] = $this->auth->getMessage();
         }
