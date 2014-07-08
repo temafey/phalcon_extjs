@@ -31,7 +31,6 @@ class CrudController extends Base
     public function readAction($module, $grid)
     {
         $params = $this->request->getQuery();
-        $params2 =$this->dispatcher->getParams();
         $gridName = $this->_getGrid($module, $grid);
         $grid = new $gridName($params, $this->getDi(), $this->getEventsManager());
 
@@ -118,6 +117,29 @@ class CrudController extends Base
         $result = \Engine\Tools\Arrays::assocToArray($result, 'id', 'name');
 
         echo json_encode([$key => $result]);
+
+        $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+    }
+
+    /**
+     * @Route("/{crudModule:[a-z,-]+}/{crudForm:[a-z,-]+}/{formField:[a-z,-,_]+}/multi-options", methods={"GET"}, name="grid-options-json")
+     */
+    public function multiOptionsAction($module, $form, $field)
+    {
+        $params = $this->request->getQuery();
+        $formName = $this->_getForm($module, $form);
+        $key = $form;
+        $form = new $formName(null, [], $this->getDi(), $this->getEventsManager());
+        $field = $form->getFieldByKey($field);
+        if (!$field instanceof \Engine\Crud\Form\Field\ManyToMany) {
+            throw new \Engine\Exception("Field not instance of 'ArrayToSelect' field type");
+        }
+
+        $result = $field->getOptions($params);
+        $count = $field->getCount($params);
+        $result = \Engine\Tools\Arrays::assocToArray($result, 'id', 'name');
+
+        echo json_encode([$key => $result, 'results' => $count]);
 
         $this->view->setRenderLevel(View::LEVEL_NO_RENDER);
     }

@@ -151,15 +151,15 @@
 .preview .x-panel-body ul {
     margin-left: 18px;
 }
-.preview .x-panel-body ul li {
-    display: list-item;
-    list-style: disc outside none !important;
-    margin-left: 18px;
-}
-.x-rtl .preview .x-panel-body ul li {
-    margin-left: 0;
-    margin-right: 18px;
-}
+/*.preview .x-panel-body ul li {*/
+    /*display: list-item;*/
+    /*list-style: disc outside none !important;*/
+    /*margin-left: 18px;*/
+/*}*/
+/*.x-rtl .preview .x-panel-body ul li {*/
+    /*margin-left: 0;*/
+    /*margin-right: 18px;*/
+/*}*/
 .preview .x-panel-body pre, #preview .x-panel-body code {
     background: none repeat scroll 0 0 #F1F1F1;
     display: block;
@@ -326,18 +326,18 @@
     margin-left:18px;
 }
 
-.preview .x-panel-body ul li {
-    display:list-item;
-    list-style-image:none !important;
-    list-style-position:outside !important;
-    list-style-type:disc !important;
-    margin-left:18px;
-}
+/*.preview .x-panel-body ul li {*/
+    /*display:list-item;*/
+    /*list-style-image:none !important;*/
+    /*list-style-position:outside !important;*/
+    /*list-style-type:disc !important;*/
+    /*margin-left:18px;*/
+/*}*/
 
-.x-rtl .preview .x-panel-body ul li {
-    margin-left: 0;
-    margin-right: 18px;
-}
+/*.x-rtl .preview .x-panel-body ul li {*/
+    /*margin-left: 0;*/
+    /*margin-right: 18px;*/
+/*}*/
 
 .preview .x-panel-body pre, #preview .x-panel-body code {
     background:#f1f1f1;
