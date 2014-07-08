@@ -39,7 +39,8 @@ class Base extends PhController
             ->addJs($scriptPath.'/lib/ux/router/Route.js')
             ->addJs($scriptPath.'/lib/ux/router/Router.js')
             ->addJs($scriptModulePath.'/static/router.js')
-            ->addCss($scriptModulePath."/css/style.css");
+            ->addCss($scriptModulePath."/css/style.css")
+            ->addCss($scriptModulePath."/css/BoxSelect.css");
             //->addJs('extjs/lib/ext-all-rtl-debug-w-comments.js');
 
         $this->view->ADMIN_PREFIX = ADMIN_PREFIX;
