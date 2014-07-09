@@ -918,7 +918,6 @@ Ext.define('Ext.ux.form.field.BoxSelect', {
                     rawValue = clipboard.getData('text/html');
                 }
             }
-
             rawValue = Ext.Array.clean(rawValue.split(me.delimiterRegexp));
             me.inputEl.dom.value = '';
             me.setValue(me.valueStore.getRange().concat(rawValue));
