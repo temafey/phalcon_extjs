@@ -1,5 +1,8 @@
 Ext.define('Ext.ux.crud.Grid', {
     extend: 'Ext.grid.Panel',
+    alias: ['widget.crudgrid'],
+    requires: ['Ext.grid.Panel'],
+
     baseParams: null,
     filter: false,
     selModel: {
@@ -9,13 +12,25 @@ Ext.define('Ext.ux.crud.Grid', {
     createStore : function(store) {
         var me = this;
 
-        return Ext.create(store, {
+        var store = Ext.create(store, {
             baseParams: me.baseParams,
             listeners: {
                 scope: me,
                 load: me.onStoreLoad
             }
         });
+
+        store.sync({
+            failure: function (batch, eOpts) {
+                alert('asdas');
+                // 'this' is the Ext.data.proxy.Ajax object
+                // or whatever proxy you are using
+                var data = this.getReader().jsonData,
+                    raw_data = this.getReader().rawData;
+            }
+        });
+
+        return store;
     },
 
     afterRender: function() {

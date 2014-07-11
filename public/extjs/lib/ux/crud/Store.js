@@ -1,5 +1,7 @@
 Ext.define('Ext.ux.crud.Store', {
     extend: 'Ext.data.Store',
+    alias: ['widget.crudstore'],
+    requires: ['Ext.data.Store'],
 
     baseParams: null,
 
@@ -75,6 +77,17 @@ Ext.define('Ext.ux.crud.Store', {
         options.params = options.params || {};
         Ext.applyIf(options.params, me.baseParams);
         me.callParent([options]);
+    },
+
+    isResponseException: function()
+    {
+        var proxy = this.proxy;
+
+        if (proxy.exceptionResponse !== false && proxy.exceptionResponse.status !== 200) {
+            return true;
+        }
+
+        return false;
     }
 
 });
