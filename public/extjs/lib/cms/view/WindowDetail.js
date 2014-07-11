@@ -219,7 +219,11 @@ Ext.define('Cms.view.WindowDetail', {
      */
     onStoreLoad: function(grid, store, records, success) {
         var me = this;
-return;
+
+        if (store.isResponseException()) {
+            return;
+        }
+
         if (!success && records == null) {
             var token = Ext.util.Cookies.get('token');
             Ext.Ajax.request({

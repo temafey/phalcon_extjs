@@ -1,5 +1,7 @@
 Ext.define('Ext.ux.crud.Form', {
     extend: 'Ext.form.Panel',
+    alias: ['widget.crudform'],
+    requires: ['Ext.form.Panel','Ext.form.field.*'],
 
     onReset: function() {
         var me = this;

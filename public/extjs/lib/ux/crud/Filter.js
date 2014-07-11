@@ -1,6 +1,6 @@
 Ext.define('Ext.ux.crud.Filter', {
     extend: 'Ext.form.Panel',
-
+    alias: ['widget.crudfilter', 'widget.crudgridfilter'],
     requires: ['Ext.form.Panel','Ext.form.field.*'],
 
     initComponent : function() {

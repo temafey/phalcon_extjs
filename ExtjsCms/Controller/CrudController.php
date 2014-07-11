@@ -30,7 +30,7 @@ class CrudController extends Base
      */
     public function readAction($module, $grid)
     {
-        $params = $this->request->getQuery();
+        $params =  \Engine\Tools\Arrays::parse_str($this->request->getRawBody());
         $gridName = $this->_getGrid($module, $grid);
         $grid = new $gridName($params, $this->getDi(), $this->getEventsManager());
 
@@ -44,7 +44,7 @@ class CrudController extends Base
      */
     public function saveAction($module, $form)
     {
-        $params = $this->request->getPost();
+        $params =  \Engine\Tools\Arrays::parse_str($this->request->getRawBody());
         $formName = $this->_getForm($module, $form);
 
         $result = forward_static_call_array([$formName, 'updateRow'], [$params, $this->getDi(), $this->getEventsManager()]);
