@@ -162,4 +162,18 @@ class Base extends PhController
         return false;
     }
 
+    /**
+     * Return all reqeust params
+     *
+     * @return array
+     */
+    protected function _getParams()
+    {
+        $postParams = $this->request->getPost();
+        $queryParams = $this->request->getQuery();
+        $bodyParams =  \Engine\Tools\Arrays::parse_str($this->request->getRawBody());
+
+        return array_merge($queryParams, $postParams, $bodyParams);
+    }
+
 }
