@@ -22,9 +22,27 @@ Ext.define('Ext.ux.crud.Proxy', {
                 Ext.Msg.show({
                     title : '',
                     msg : "Response timed out.",
-                    buttons : ExtMsg.OK,
+                    buttons : Ext.Msg.OK,
                     icon : Ext.MessageBox.INFO
                 });
+            } else if (response.status == 200) {
+
+                var obj = Ext.decode(response.responseText);
+                if (obj.success) {
+                    Ext.MessageBox.show({
+                        title: 'Server error',
+                        msg: obj.msg.join("\n"),
+                        icon: Ext.MessageBox.INFO,
+                        buttons: Ext.Msg.OK
+                    });
+                } else {
+                    Ext.MessageBox.show({
+                        title: 'Server error',
+                        msg: obj.error.join("\n"),
+                        icon: Ext.MessageBox.ERROR,
+                        buttons: Ext.Msg.OK
+                    });
+                }
             }
         }
     },

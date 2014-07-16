@@ -88,6 +88,17 @@ Ext.define('Ext.ux.crud.Store', {
         }
 
         return false;
+    },
+
+    listeners: {
+        exception: function(proxy, response, operation){
+            Ext.MessageBox.show({
+                title: 'Server error',
+                msg: operation.getError(),
+                icon: Ext.MessageBox.ERROR,
+                buttons: Ext.Msg.OK
+            });
+        }
     }
 
 });
