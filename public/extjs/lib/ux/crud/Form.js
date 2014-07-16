@@ -8,7 +8,7 @@ Ext.define('Ext.ux.crud.Form', {
         var fields = me.getForm().getFields().items;
 
         for (var i = 0, len = fields.length; i < len; i++) {
-            if (fields[i].name !== me.primaryKey) {
+            if (fields[i].name !== me.primaryKey && !fields[i].readOnly) {
                 fields[i].setValue('');
                 fields[i].reset();
             }
@@ -31,14 +31,33 @@ Ext.define('Ext.ux.crud.Form', {
                 parentForm: me,
                 success: function(form, action) {
                     var me = this;
-
-                    if (me.parentForm.grid !== undefined) {
-                        me.parentForm.grid.onReload();
+                    console.log(action.result);
+                    if (action.result.success) {
+                        if (me.parentForm.grid !== undefined) {
+                            me.parentForm.grid.onReload();
+                        }
+                        Ext.Msg.show({
+                            title : '',
+                            msg : action.result.msg,
+                            icon : Ext.MessageBox.INFO,
+                            buttons : Ext.Msg.OK
+                        });
+                    } else {
+                        Ext.MessageBox.show({
+                            title: 'Server error',
+                            msg: action.error.join("\n"),
+                            icon: Ext.MessageBox.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
                     }
-                    Ext.Msg.alert('Success', action.result.msg);
                 },
                 failure: function(form, action) {
-                    Ext.Msg.alert('Failed', action.result.error);
+                    Ext.MessageBox.show({
+                        title: 'Server error',
+                        msg: action.error.join("\n"),
+                        icon: Ext.MessageBox.ERROR,
+                        buttons: Ext.Msg.OK
+                    });
                 }
             });
         }
