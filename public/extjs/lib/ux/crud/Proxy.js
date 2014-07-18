@@ -26,22 +26,22 @@ Ext.define('Ext.ux.crud.Proxy', {
                     icon : Ext.MessageBox.INFO
                 });
             } else if (response.status == 200) {
-
                 var obj = Ext.decode(response.responseText);
+
                 if (obj.success) {
-                    Ext.MessageBox.show({
-                        title: 'Server error',
-                        msg: obj.msg.join("\n"),
-                        icon: Ext.MessageBox.INFO,
-                        buttons: Ext.Msg.OK
-                    });
                 } else {
-                    Ext.MessageBox.show({
-                        title: 'Server error',
-                        msg: obj.error.join("\n"),
-                        icon: Ext.MessageBox.ERROR,
-                        buttons: Ext.Msg.OK
-                    });
+                    var msg = '';
+                    if (obj.error !== undefined) {
+                        msg = obj.error;
+                        if (msg instanceof Array) {
+                            msg = msg.join("\n");
+                        }Ext.MessageBox.show({
+                            title: 'Server error',
+                            msg: msg,
+                            icon: Ext.MessageBox.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    }
                 }
             }
         }

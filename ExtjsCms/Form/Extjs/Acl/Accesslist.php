@@ -49,7 +49,6 @@ class Accesslist extends Base
     {
 		$this->_fields = [
 			'id'        => new Field\Primary('Id'),
-			'name'      => new Field\Name('Name'),
             'role'      => new Field\ManyToOne('Role', '\ExtjsCms\Model\Acl\Role'),
 			'resource'  => new Field\ManyToOne('Resource', '\ExtjsCms\Model\Acl\Resource'),
 			'access'    => new Field\ManyToOne('Access', '\ExtjsCms\Model\Acl\Access'),

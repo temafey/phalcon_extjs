@@ -52,7 +52,6 @@ class Accesslist extends Base
     {
 		$this->_columns = [
 			'id'       => new Column\Primary('Id'),
-			'name'     => new Column\Name('Name'),
             'role'     => new Column\JoinOne('Role', '\ExtjsCms\Model\Acl\Role'),
 			'resource' => new Column\JoinOne('Resource', '\ExtjsCms\Model\Acl\Resource'),
 			'access'   => new Column\JoinOne('Access', '\ExtjsCms\Model\Acl\Access'),
@@ -96,7 +95,6 @@ class Accesslist extends Base
                 ]
 			]),
 			'id'       => new Field\Primary('Id'),
-            'name'     => new Field\Name('Name'),
             'role'     => new Field\Join('Role', '\ExtjsCms\Model\Acl\Role'),
             'resource' => new Field\Join('Resource', '\ExtjsCms\Model\Acl\Resource'),
 			'access'   => new Field\Join('Access', '\ExtjsCms\Model\Acl\Access')

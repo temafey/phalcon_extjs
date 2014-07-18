@@ -22,7 +22,6 @@ Ext.define('Ext.ux.crud.Grid', {
 
         store.sync({
             failure: function (batch, eOpts) {
-                alert('asdas');
                 // 'this' is the Ext.data.proxy.Ajax object
                 // or whatever proxy you are using
                 var data = this.getReader().jsonData,

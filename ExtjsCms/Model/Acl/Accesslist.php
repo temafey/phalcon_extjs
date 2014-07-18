@@ -13,6 +13,13 @@ namespace ExtjsCms\Model\Acl;
  */
 class Accesslist extends \Engine\Mvc\Model
 {
+
+    /**
+     * Default order name
+     * @var string
+     */
+    protected $_orderExpr = 'role_id';
+
     /**
      *
      * @var integer
