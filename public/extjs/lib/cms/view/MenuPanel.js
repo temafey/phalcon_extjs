@@ -15,6 +15,7 @@ Ext.define('Cms.view.MenuPanel', {
     stateId: 'tree-panel-menu-state-id',
     stateful: true,
     id: 'mainmenu',
+    requires: ['Ext.ux.crud.Proxy'],
 
     initComponent: function() {
         var me = this;
@@ -107,7 +108,7 @@ Ext.define('Cms.view.MenuPanel', {
             model: 'MenuPanelTreeModel',
             autoLoad: true,
             proxy: {
-                type: 'ajax',
+                type: 'crudproxy',
                 url: '/'+ADMIN_PREFIX+'/menu/options',
                 reader: {
                     root: 'event',
@@ -120,7 +121,8 @@ Ext.define('Cms.view.MenuPanel', {
             listeners: {
                 scope: me,
                 contextmenu: me.onContextMenu,
-                viewready: me.onViewReady
+                viewready: me.onViewReady,
+                load: me.onStoreLoad
             }
         });
 
@@ -355,5 +357,48 @@ Ext.define('Cms.view.MenuPanel', {
         this.collapseAll(function() {
             toolbar.enable();
         });
-    }
+    },
+
+
+    /**
+     * Fires when a grid store is loaded
+     *
+     * @param {Ext.ux.crud.Grid} grid
+     * @param {Ext.ux.crud.Store} store
+     * @param {Ext.data.Model} records
+     * @param {Boolean} success
+     */
+    onStoreLoad: function(grid, store, records, success) {
+        var me = this;
+
+        if (store.isResponseException()) {
+            return;
+        }
+
+        if (!success && records == null) {
+            var token = Ext.util.Cookies.get('token');
+            Ext.Ajax.request({
+                url: '/'+ADMIN_PREFIX+'/check',
+                params: {
+                    token: token
+                },
+                grid: grid,
+                success: function (response, opts) {
+                    var obj = Ext.decode(response.responseText);
+                    if (obj.success == true) {
+                        grid.onReload();
+                        return true;
+                    } else {
+                        Ext.util.Cookies.clear('username');
+                        Ext.util.Cookies.clear('token');
+                        window.location = '/'+ADMIN_PREFIX;
+                    }
+                },
+                failure: function (response, opts) {
+                    window.location = '/'+ADMIN_PREFIX;
+                }
+            });
+
+        }
+    },
 });
