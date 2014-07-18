@@ -14,6 +14,12 @@ class InstallController extends Base
 {
     public function initialize()
     {
+        if (!$this->_checkAccess()) {
+            $this->dispatcher->forward([
+                "controller" => 'admin',
+                "action" => 'denied'
+            ]);
+        }
     }
 
     /**
