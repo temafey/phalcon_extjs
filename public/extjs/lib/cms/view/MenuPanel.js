@@ -363,16 +363,16 @@ Ext.define('Cms.view.MenuPanel', {
     /**
      * Fires when a grid store is loaded
      *
-     * @param {Ext.ux.crud.Grid} grid
      * @param {Ext.ux.crud.Store} store
      * @param {Ext.data.Model} records
      * @param {Boolean} success
      */
-    onStoreLoad: function(grid, store, records, success) {
+    onStoreLoad: function(store, records, success) {
         var me = this;
+            proxy = store.proxy;
 
-        if (store.isResponseException()) {
-            return;
+        if (proxy.isResponseException()) {
+            return true;
         }
 
         if (!success && records == null) {
@@ -400,5 +400,5 @@ Ext.define('Cms.view.MenuPanel', {
             });
 
         }
-    },
+    }
 });
