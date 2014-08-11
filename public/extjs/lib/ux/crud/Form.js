@@ -91,9 +91,32 @@ Ext.define('Ext.ux.crud.Form', {
         return false;
     },
 
-    getLink: function() {
-        var id = this.getPrimaryField().getValue();
-        return (id !== '') ? this.rtrim(this.link, '/')+'/'+id : '#';
+    getAllFields: function(){
+        var me = this;
+        var fields = me.getForm().getFields().items;
+
+        return fields;
+    },
+
+    getLink: function () {
+        var me = this;
+        console.log(me.link);
+        var link = me.generateLinkFromTemplate(me.link, me.getAllFields());
+
+        return link;
+    },
+
+    generateLinkFromTemplate: function (template, values, startDelimeter, endDelimeter) {
+        startDelimeter = typeof startDelimeter !== 'undefined' ? startDelimeter : '{';
+        endDelimeter = typeof endDelimeter !== 'undefined' ? endDelimeter : '}';
+
+        for (i = 0; i < values.length; i++) {
+            var pregString = new RegExp(startDelimeter + values[i].name + endDelimeter, 'g');
+            console.log(pregString);
+            var template = template.replace(pregString, values[i].value);
+        }
+
+        return template;
     },
 
     rtrim: function (str, charlist) {
