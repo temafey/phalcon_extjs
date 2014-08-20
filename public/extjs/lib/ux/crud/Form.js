@@ -112,7 +112,6 @@ Ext.define('Ext.ux.crud.Form', {
 
         for (i = 0; i < values.length; i++) {
             var pregString = new RegExp(startDelimeter + values[i].name + endDelimeter, 'g');
-            console.log(pregString);
             var template = template.replace(pregString, values[i].value);
         }
 
