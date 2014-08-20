@@ -100,7 +100,6 @@ Ext.define('Ext.ux.crud.Form', {
 
     getLink: function () {
         var me = this;
-        console.log(me.link);
         var link = me.generateLinkFromTemplate(me.link, me.getAllFields());
 
         return link;
