@@ -7,7 +7,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.4.0",
-        "temafey/phalcon-engine": "v0.6.2"
+        "temafey/phalcon-engine": "v0.6.4"
     },
     "autoload": {
         "psr-0": {
